@@ -961,6 +961,12 @@
       "additionalProperties": true,
       "description": "Requester configuration part of the dual-pod solution for FMA",
       "properties": {
+        "accelerators": {
+          "default": "GPU-0",
+          "required": [],
+          "title": "accelerators",
+          "type": "string"
+        },
         "adminPort": {
           "default": 8081,
           "required": [],
@@ -978,6 +984,44 @@
           "required": [],
           "title": "image",
           "type": "string"
+        },
+        "inferenceServerConfig": {
+          "default": "",
+          "required": [],
+          "title": "inferenceServerConfig",
+          "type": "string"
+        },
+        "inferenceServerConfigAnnotations": {
+          "additionalProperties": true,
+          "default": {},
+          "required": [],
+          "title": "inferenceServerConfigAnnotations",
+          "type": "object"
+        },
+        "launcherConfig": {
+          "default": "",
+          "required": [],
+          "title": "launcherConfig",
+          "type": "string"
+        },
+        "launcherConfigAnnotations": {
+          "additionalProperties": true,
+          "default": {},
+          "required": [],
+          "title": "launcherConfigAnnotations",
+          "type": "object"
+        },
+        "launcherConfigSpec": {
+          "additionalProperties": true,
+          "required": [],
+          "title": "launcherConfigSpec",
+          "type": "object"
+        },
+        "modelServerConfig": {
+          "additionalProperties": true,
+          "required": [],
+          "title": "modelServerConfig",
+          "type": "object"
         },
         "port": {
           "additionalProperties": false,
