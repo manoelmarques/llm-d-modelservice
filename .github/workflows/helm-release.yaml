@@ -3,7 +3,7 @@ name: Helm Chart Release
 on:
   push:
     branches:
-      - main
+      - requester
     paths:
       - charts/**
 
@@ -19,8 +19,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v6
       with:
-        # Checks out the main branch
-        ref: main
+        # Checks out the requester branch
+        ref: requester
         fetch-depth: 0
 
     - name: Configure Git
@@ -56,15 +56,12 @@ jobs:
         # Checkout gh-pages branch
         git checkout gh-pages
 
-        # Copy chart source files and README from main branch
-        git checkout main -- charts/ README.md
+        # Copy chart source files and README from requester branch
+        git checkout requester -- charts/ README.md
 
-        # Commit the changes if there are any
-        if ! git diff --quiet; then
-          git add charts/ README.md
-          git commit -m "Sync latest changes from main branch"
-          git push origin gh-pages
-          echo "Successfully synced changes to gh-pages"
-        else
-          echo "No changes to sync"
-        fi
+        # Commit the changes
+        git add charts/ README.md
+        git commit -m "Sync latest changes from requester branch"
+        git push origin gh-pages
+        echo "Successfully synced changes to gh-pages"
+
