@@ -23,6 +23,32 @@ routing:
   proxy:
     secure: false
 
+# OpenTelemetry distributed tracing configuration
+# When enabled, vLLM and routing-proxy containers will export traces to the OTLP endpoint
+tracing:
+  # -- Enable distributed tracing
+  enabled: false
+  # -- OTLP gRPC endpoint for trace export (OTel Collector in the same namespace)
+  otlpEndpoint: "http://otel-collector:4317"
+  # -- Trace sampling configuration
+  sampling:
+    # -- OpenTelemetry sampler type (e.g., "parentbased_traceidratio", "always_on", "always_off")
+    sampler: "parentbased_traceidratio"
+    # -- Sampling ratio (0.0 to 1.0). Use 1.0 for 100% sampling (demo/debug), 0.1 for 10% (production)
+    samplerArg: "1.0"
+  # -- Service name overrides for different components
+  serviceNames:
+    # -- Service name for vLLM decode instances
+    vllmDecode: "vllm-decode"
+    # -- Service name for vLLM prefill instances
+    vllmPrefill: "vllm-prefill"
+    # -- Service name for routing proxy sidecar
+    routingProxy: "routing-proxy"
+  # -- vLLM-specific tracing options
+  vllm:
+    # -- Level of trace detail collection (e.g., "all", "model", "scheduler")
+    collectDetailedTraces: "all"
+
 # @schema
 # additionalProperties: true
 # @schema
@@ -47,6 +73,28 @@ requester:
       gpus: 1
       cpus: 1
       memory: 250Mi
+
+  # @schema
+  # additionalProperties: true
+  # @schema
+  modelServerConfig:
+    # @schema
+    # additionalProperties: true
+    # @schema
+    annotations: {}
+    # @schema
+    # additionalProperties: true
+    # @schema
+    labels: {}
+    # @schema
+    # additionalProperties: true
+    # @schema
+    env_vars:
+      VLLM_SERVER_DEV_MODE: "1"
+      VLLM_USE_V1: "1"
+      VLLM_LOGGING_LEVEL: "DEBUG"
+    options: ""
+    port: 8005
 
 # Decode pod configuation
 decode:
