@@ -3,6 +3,31 @@ entries:
   llm-d-modelservice:
   - apiVersion: v2
     appVersion: v0.4.0
+    created: "2026-02-17T16:09:41.891301275Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.27.0
+    description: A Helm chart for ModelService in llm-d
+    digest: 1dbeea644437afcaf479854facaad57521218753f5812a116a2864536f3b0da6
+    maintainers:
+    - email: jing.chen2@ibm.com
+      name: Jing Chen
+      url: https://github.com/jgchn
+    - email: kalantar@us.ibm.com
+      name: Michael Kalantar
+      url: https://github.com/kalantar
+    name: llm-d-modelservice
+    sources:
+    - https://github.com/llm-d-incubation/llm-d-modelservice
+    type: application
+    urls:
+    - https://github.com/manoelmarques/llm-d-modelservice/releases/download/llm-d-modelservice-v0.4.9/llm-d-modelservice-v0.4.9.tgz
+    version: v0.4.9
+  - apiVersion: v2
+    appVersion: v0.4.0
     created: "2026-02-16T16:18:46.276722646Z"
     dependencies:
     - name: common
@@ -101,4 +126,4 @@ entries:
     urls:
     - https://github.com/manoelmarques/llm-d-modelservice/releases/download/llm-d-modelservice-v0.4.5/llm-d-modelservice-v0.4.5.tgz
     version: v0.4.5
-generated: "2026-02-16T16:18:46.276743265Z"
+generated: "2026-02-17T16:09:41.891323837Z"
