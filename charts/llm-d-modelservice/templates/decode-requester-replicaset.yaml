@@ -4,10 +4,6 @@ apiVersion: fma.llm-d.ai/v1alpha1
 kind: LauncherConfig
 metadata:
   name: {{ .Values.requester.launcherConfig | required "requester.launcherConfig is required when requester is enabled" }}
-  {{- with .Values.requester.launcherConfigAnnotations }}
-  annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
 spec:
   maxSleepingInstances: {{ .Values.requester.launcherConfigSpec.maxSleepingInstances | default 3 }}
   podTemplate:
@@ -24,10 +20,6 @@ apiVersion: fma.llm-d.ai/v1alpha1
 kind: InferenceServerConfig
 metadata:
   name: {{ .Values.requester.inferenceServerConfig }}
-  {{- with .Values.requester.inferenceServerConfigAnnotations }}
-  annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
 spec:
   launcherConfigName: {{ .Values.requester.launcherConfig }}
   modelServerConfig:
@@ -35,13 +27,10 @@ spec:
     annotations:
       {{- toYaml . | nindent 6 }}
     {{- end }}
-    {{- $modelParts := split "/" .Values.modelArtifacts.name }}
+    {{- with .Values.requester.modelServerConfig.labels }}
     labels:
-      model-reg: {{ index $modelParts._1 | quote }}
-      model-repo: {{ index $modelParts._0 | quote }}
-      {{- with .Values.requester.modelServerConfig.labels }}
       {{- toYaml . | nindent 6 }}
-      {{- end }}
+    {{- end }}
     {{- with .Values.requester.modelServerConfig.env_vars }}
     env_vars:
       {{- toYaml . | nindent 6 }}
@@ -50,19 +39,6 @@ spec:
     options: {{ .Values.requester.modelServerConfig.options | quote }}
     {{- end }}
     port: {{ .Values.requester.modelServerConfig.port | default 8005 }}
-    {{- if or (.Values.decode.initContainers) (eq .Values.routing.proxy.enabled true) }}
-    initContainers:
-      {{- (include "llm-d-modelservice.routingProxy" (dict "proxy" .Values.routing.proxy "servicePort" .Values.routing.servicePort "Values" .Values)) | nindent 6 }}
-      {{- if .Values.decode.initContainers }}
-      {{- toYaml .Values.decode.initContainers | nindent 6 }}
-      {{- end }}
-    {{- end }}
-    {{- with .Values.decode.containers }}
-    containers:
-      {{- range . }}
-      {{- (include "llm-d-modelservice.container" (dict "role" "decode" "container" . "parallelism" $.Values.decode.parallelism "Values" $.Values "Release" $.Release "Chart" $.Chart "pdSpec" $.Values.decode)) | nindent 6 }}
-      {{- end }}
-    {{- end }}
 ---
 apiVersion: apps/v1
 kind: ReplicaSet
