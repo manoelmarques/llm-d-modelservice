@@ -62,7 +62,6 @@ spec:
         app: dp-app
       annotations:
         dual-pods.llm-d.ai/admin-port: "{{ .Values.requester.adminPort }}"
-        dual-pods.llm-d.ai/accelerators: {{ .Values.requester.accelerators | quote }}
         dual-pods.llm-d.ai/inference-server-config: {{ .Values.requester.inferenceServerConfig | required "requester.inferenceServerConfig is required" }}
     spec:
       containers:
