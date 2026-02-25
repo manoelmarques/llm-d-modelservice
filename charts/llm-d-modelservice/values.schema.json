@@ -3506,11 +3506,6 @@
             "additionalProperties": true,
             "description": "Requester configuration part of the dual-pod solution for FMA",
             "properties": {
-                "accelerators": {
-                    "default": "GPU-0",
-                    "title": "accelerators",
-                    "type": "string"
-                },
                 "adminPort": {
                     "default": 8081,
                     "title": "adminPort",
@@ -3592,6 +3587,13 @@
                                                                 "title": "command",
                                                                 "type": "array"
                                                             },
+                                                            "env": {
+                                                                "items": {
+                                                                    "type": "object"
+                                                                },
+                                                                "title": "env",
+                                                                "type": "array"
+                                                            },
                                                             "image": {
                                                                 "default": "ghcr.io/llm-d-incubation/llm-d-fast-model-actuation/launcher:latest",
                                                                 "title": "image",
@@ -3601,6 +3603,10 @@
                                                                 "default": "IfNotPresent",
                                                                 "title": "imagePullPolicy",
                                                                 "type": "string"
+                                                            },
+                                                            "mountModelVolume": {
+                                                                "title": "mountModelVolume",
+                                                                "type": "boolean"
                                                             },
                                                             "name": {
                                                                 "default": "inference-server",
