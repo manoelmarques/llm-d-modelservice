@@ -64,4 +64,3 @@ jobs:
         git commit -m "Sync latest changes from requester branch"
         git push origin gh-pages
         echo "Successfully synced changes to gh-pages"
-

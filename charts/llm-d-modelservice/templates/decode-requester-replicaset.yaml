@@ -12,8 +12,15 @@ spec:
       {{- toYaml . | nindent 6 }}
     {{- end }}
     spec:
-      {{- with .Values.requester.launcherConfigSpec.podTemplate.spec }}
-      {{- toYaml . | nindent 6 }}
+      {{- with .Values.requester.launcherConfigSpec.podTemplate.spec.containers }}
+      containers:
+        {{- range . }}
+        {{- (include "llm-d-modelservice.container" (dict "role" "launcher" "container" . "parallelism" $.Values.decode.parallelism "Values" $.Values "Release" $.Release "Chart" $.Chart "pdSpec" $.Values.requester.launcherConfigSpec)) | nindent 8 }}
+        {{- end }}
+      {{- end }}
+      {{- if .Values.modelArtifacts }}
+      volumes:
+      {{- include "llm-d-modelservice.mountModelVolumeVolumes" .Values.modelArtifacts | nindent 6 }}
       {{- end }}
 ---
 apiVersion: fma.llm-d.ai/v1alpha1
