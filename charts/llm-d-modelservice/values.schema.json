@@ -3592,6 +3592,13 @@
                                                                 "title": "command",
                                                                 "type": "array"
                                                             },
+                                                            "env": {
+                                                                "items": {
+                                                                    "type": "object"
+                                                                },
+                                                                "title": "env",
+                                                                "type": "array"
+                                                            },
                                                             "image": {
                                                                 "default": "ghcr.io/llm-d-incubation/llm-d-fast-model-actuation/launcher:latest",
                                                                 "title": "image",
@@ -3601,6 +3608,10 @@
                                                                 "default": "IfNotPresent",
                                                                 "title": "imagePullPolicy",
                                                                 "type": "string"
+                                                            },
+                                                            "mountModelVolume": {
+                                                                "title": "mountModelVolume",
+                                                                "type": "boolean"
                                                             },
                                                             "name": {
                                                                 "default": "inference-server",
