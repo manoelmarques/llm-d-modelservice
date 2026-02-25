@@ -26,7 +26,6 @@ spec:
         app: dp-app
       annotations:
         dual-pods.llm-d.ai/admin-port: "8081"
-        dual-pods.llm-d.ai/accelerators: "GPU-0"
         dual-pods.llm-d.ai/inference-server-config: inference-server-config-example
     spec:
       containers:
