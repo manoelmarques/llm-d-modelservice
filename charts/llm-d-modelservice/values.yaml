@@ -186,7 +186,14 @@ requester:
       # additionalProperties: true
       # @schema
       metadata: {}
+      # @schema
+      # additionalProperties: true
+      # @schema
       spec:
+        # @schema
+        # items:
+        #   additionalProperties: true
+        # @schema
         containers:
           - name: inference-server
             image: "ghcr.io/llm-d-incubation/llm-d-fast-model-actuation/launcher:latest"

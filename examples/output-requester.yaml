@@ -179,6 +179,7 @@ spec:
   maxSleepingInstances: 3
   podTemplate:
     spec:
+      runtimeClassName: nvidia-legacy
       containers:
         - name: inference-server
           image: ghcr.io/llm-d-incubation/llm-d-fast-model-actuation/launcher:latest
