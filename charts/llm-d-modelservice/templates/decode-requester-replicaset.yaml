@@ -72,6 +72,8 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: {{ include "llm-d-modelservice.decodeName" . }}
+  labels:
+    {{- include "llm-d-modelservice.labels" . | nindent 4 }}
 spec:
   replicas: {{ ternary .Values.decode.replicas 1 (hasKey .Values.decode "replicas") }}
   selector:
@@ -82,6 +84,7 @@ spec:
     metadata:
       labels:
         app: dp-app
+        {{- include "llm-d-modelservice.decodelabels" . | nindent 8 }}
       annotations:
         dual-pods.llm-d.ai/admin-port: "{{ .Values.requester.adminPort }}"
         dual-pods.llm-d.ai/inference-server-config: {{ .Values.requester.inferenceServerConfig | required "requester.inferenceServerConfig is required" }}
